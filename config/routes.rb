@@ -8,7 +8,7 @@ resources :labs
   match "/update_grade" => 'students#update_grade', :via => [:get,:post]
   match "/update_comments" => 'students#update_comments', :via => [:get,:post]
   match "/labs/student_history" => 'labs#student_history', :via => [:get,:post]
-  match "/labs/export_student" => 'labs#export_student', :via => [:get, :post]
+  match "/labs/export_student/:id" => 'labs#export_student', :via => [:get, :post]
   resources :students
   
 

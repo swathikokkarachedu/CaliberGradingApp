@@ -1,4 +1,6 @@
 class LabsController < ApplicationController
+    require 'csv'
+
   # GET /labs
   # GET /labs.json
   def index
@@ -29,11 +31,16 @@ class LabsController < ApplicationController
   end
   
   def export_student
-    @g = StudentGrade.where("student_id =?", params[:id])
+    @g = StudentGrade.where("lab_id =?", params[:id])
+	@lab_name = Lab.find params[:id]
+	lname = @lab_name.name
 	student_csv = CSV.generate do |csv|
-    csv << ["grade", "comment"]
+    csv << ["Student FName", "Student LName", "Grade", "Comment"]
+	puts "####################################"
+	p @g
     @g.each do |student|
-      csv << [student.grade, student.comment]  
+	  @stu = Student.find student.student_id
+      csv << [@stu.fname,@stu.lname,student.grade, student.comment]  
      end   
    end  
    send_data(student_csv, :type=> 'text/csv', :filename => 'Student_Grades.csv')
