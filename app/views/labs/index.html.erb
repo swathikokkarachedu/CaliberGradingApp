@@ -1,0 +1,50 @@
+ <%- model_class = Lab -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<div class="container" style="margin-left:384px;">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
+    <thead>
+    
+	<%= link_to "+ Add new lab",
+            new_lab_path,
+            :class => 'btn btn-primary btn-xs pull-right',:style=> "color:#fff" %>
+        <tr>
+            <th>Name</th>
+            <th>Course Name</th>
+            <th>Total Marks</th>
+			<th>Due Date</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+	     <%if @labs.present?%>
+	       <%@labs.each do |l|%>
+            <tr>
+                <td><%= link_to l.name,lab_path(l),:style=>"color:#005580;"%></td>
+                <td><%=l.course.name%></td>
+                <td><%=l.total_marks%></td>
+				<td><%=l.due_date%></td>
+				<td class="text-center">
+				<%= link_to 'Export Grades', '/labs/export_student', :class => 'btn btn-info btn-xs' %> 
+				<a class='btn btn-info btn-xs' href="/labs/<%=l.id%>/edit" style="color:#fff"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+				<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      "/lab/delete/#{l.id}",
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+				</td>
+            </tr>
+		<%end%>
+	<%else%>
+	  <tr >
+	   <td colspan="5" style="text-align:center">
+	    No labs are added yet!
+		</td>
+	  </tr>
+	<%end%>
+    </table>
+    </div>
+</div>
+
+

@@ -1,0 +1,24 @@
+<table class="table table-striped custab" style="width:60%">
+    <thead>
+    
+        <tr>
+            <th>Student Name</th>
+            <th>Grade</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+	     <%if @l.present?%>
+	       <%@l.each do |f|%>
+		    <%@s = Student.find f.student_id%>
+            <tr>
+                <td><%=@s.fname%>&nbsp;<%=@s.lname%></td>
+                <td><%=f.grade%></td>
+                <td><%=f.comment%> </td>	
+            </tr>
+		<%end%>
+	<%else%>
+	 <tr>
+	  <td colspan="3">No history is present!</td>
+	 </tr>
+	<%end%>
+    </table>

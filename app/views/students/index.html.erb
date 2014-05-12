@@ -1,0 +1,71 @@
+<%- model_class = Student -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+    <%= link_to "+ Download CSV",
+            "/students/export",
+            :class => 'btn btn-primary btn-xs pull-right',:style=> "color:#fff;margin-left:10px;" %>
+
+			<a href="#myModal" role="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" style="color:#fff">+ Import CSV</a>
+			
+<div class="container" style="margin-left:384px;">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
+    <thead>
+   
+	
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+			<th>Course Name</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+	     <%if @students.present?%>
+	       <%@students.each do |student|%>
+            <tr>
+                <td><%=student.fname%></td>
+                <td><%=student.lname%></td>
+                <td><%=student.email%></td>
+				<td><%=student.cname%></td>
+                <td class="text-center">
+				 <a class='btn btn-info btn-xs' href="/students/<%=student.id%>/edit" style="color:#fff"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+				<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      "/student/delete/#{student.id}",
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+				</td>
+            </tr>
+		<%end%>
+	<%else%>
+	  <tr >
+	   <td colspan="5" style="text-align:center">
+	    No students are added yet!
+		</td>
+	  </tr>
+	<%end%>
+    </table>
+    </div>
+</div>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+<h3 id="myModalLabel">Import Students Data From CSV</h3>
+</div>
+<div class="modal-body">
+<%= form_tag('/import', multipart: true) do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import",:class=>"btn btn-primary"%>
+  <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<% end %>
+</div>
+<div class="modal-footer">
+
+</div>
+</div>
+<%#= link_to t('.new', :default => t("helpers.links.new")),
+            new_student_path,
+            :class => 'btn btn-primary' %>
