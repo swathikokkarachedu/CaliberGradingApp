@@ -8,6 +8,18 @@ TestGrade::Application.configure do
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
+  
+  # mail configuration
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+        :address => "smtp.gmail.com",
+        :port    => 587,
+        :domain  => "gmail.com",
+        :user_name  => "swathi2882@gmail.com",
+        :password   => "swaraj1602",
+        :authentication => :plain,
+        :enable_starttls_auto => true
+      }
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true

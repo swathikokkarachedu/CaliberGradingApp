@@ -9,6 +9,7 @@ resources :labs
   match "/update_comments" => 'students#update_comments', :via => [:get,:post]
   match "/labs/student_history" => 'labs#student_history', :via => [:get,:post]
   match "/labs/export_student/:id" => 'labs#export_student', :via => [:get, :post]
+  match "/labs/email_grades/:id" => 'labs#email_grades', :via => [:get, :post]
   resources :students
   
 

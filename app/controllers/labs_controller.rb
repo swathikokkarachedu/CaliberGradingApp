@@ -30,6 +30,18 @@ class LabsController < ApplicationController
    render :partial => "student_history", :object => @l
   end
   
+   def email_grades
+   
+     @sg = StudentGrade.where("lab_id=?", params[:id])
+	 @l = Lab.find(params[:id])
+      @sg.each do |student|
+	   @stu = Student.find student.student_id
+	     StudentNotify.notification(@stu.email,@stu.fname,student.grade, student.comment,@l.name).deliver
+	end	
+	redirect_to request.referrer
+	flash[:notice] = "Email sent successfully"
+  end
+   
   def export_student
     @g = StudentGrade.where("lab_id =?", params[:id])
 	@lab_name = Lab.find params[:id]
@@ -45,6 +57,7 @@ class LabsController < ApplicationController
    end  
    send_data(student_csv, :type=> 'text/csv', :filename => 'Student_Grades.csv')
   end
+  
   
   
   
