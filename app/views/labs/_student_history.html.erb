@@ -4,7 +4,6 @@
         <tr>
             <th>Student Name</th>
 			<th>Lab </th>
-            <th>Grade</th>
             <th>Comment</th>
         </tr>
     </thead>
@@ -13,7 +12,6 @@
 		    <%@s = Student.find f.student_id%>
             <tr>
                 <td><%=@s.fname%>&nbsp;<%=@s.lname%></td>
-				<td>Lab1</td>
                 <td><%=f.grade%></td>
                 <td><%=f.comment%> </td>	
             </tr>
