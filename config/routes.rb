@@ -20,6 +20,7 @@ resources :labs
   root :to => 'home#index'
   match "/course/delete/:id" => 'courses#destroy'
   match "/student/delete/:id" => 'students#destroy'
+  match "/lab/delete/:id"=> 'labs#destroy'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
