@@ -110,13 +110,14 @@ class LabsController < ApplicationController
   end
   
    
+   
 
   # DELETE /labs/1
   # DELETE /labs/1.json
   def destroy
     @lab = Lab.find(params[:id])
     @lab.destroy
-flash[:notice] = "Course has been deleted successfully"
+    flash[:notice] = "Lab has been deleted successfully"
     respond_to do |format|
       format.html { redirect_to labs_url }
       format.json { head :no_content }
